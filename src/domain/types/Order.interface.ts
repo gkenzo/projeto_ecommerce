@@ -1,5 +1,7 @@
 import { IDiscount, IProduct } from ".";
+import { Account } from "../Account";
 
+type createOrderInputDTO = Pick<IOrder, "shopper">;
 interface IOrder {
   id: string;
   created_at: Date;
@@ -7,6 +9,7 @@ interface IOrder {
   totalDiscount: number;
   products: IProduct[];
   discounts: IDiscount[];
+  shopper: Account | {};
 
   addProduct: (product: IProduct) => void;
   removeProduct: (productID: string) => void;
@@ -15,4 +18,4 @@ interface IOrder {
   applyDiscount: (discount: IDiscount) => void;
 }
 
-export { IOrder };
+export { IOrder, createOrderInputDTO };

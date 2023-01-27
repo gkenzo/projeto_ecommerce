@@ -1,4 +1,9 @@
-import { IAccount, IAddress, DocumentType } from "./types";
+import {
+  IAccount,
+  IAddress,
+  DocumentType,
+  createAccountInputDTO,
+} from "./types";
 import { v4 as uuid } from "uuid";
 import { IDocumentValidator } from "./types/DocumentValidator.interface";
 
@@ -17,15 +22,7 @@ class Account implements IAccount {
     country: "",
     zipcode: "",
   };
-  constructor({
-    name,
-    type,
-    document,
-  }: {
-    name: string;
-    type: DocumentType;
-    document: string;
-  }) {
+  constructor({ name, type, document }: createAccountInputDTO) {
     this.name = name;
     this.type = type;
     this.document = document;
@@ -38,7 +35,7 @@ class Account implements IAccount {
     type: DocumentType;
     document: string | number;
     documentValidator: IDocumentValidator;
-  }) => documentValidator.validate(type, document);
+  }) => documentValidator.validate(type, document.toString());
   setAddress = (address: IAddress) => {
     for (const addressField in address) {
       this.address[addressField as keyof IAddress] =

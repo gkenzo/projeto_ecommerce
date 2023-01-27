@@ -1,10 +1,7 @@
 import { IAddress } from ".";
 import { IDocumentValidator } from "./DocumentValidator.interface";
 
-type createAccountInputDTO = Pick<
-  IAccount,
-  "name" | "document" | "type" | "address"
->;
+type createAccountInputDTO = Pick<IAccount, "name" | "document" | "type">;
 
 type DocumentType = "CPF" | "CNPJ";
 
@@ -18,7 +15,7 @@ interface IAccount {
   id: string;
   name: string;
   type: DocumentType;
-  document: string | number;
+  document: string;
   address: IAddress;
   isValidDocument: ({
     type,

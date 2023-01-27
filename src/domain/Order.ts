@@ -1,4 +1,5 @@
-import { IDiscount, IOrder, IProduct } from "./types";
+import { Account } from "./Account";
+import { IDiscount, IOrder, IProduct, createOrderInputDTO } from "./types";
 import { v4 as uuid } from "uuid";
 
 class Order implements IOrder {
@@ -8,9 +9,10 @@ class Order implements IOrder {
   discounts: IDiscount[] = [];
   totalDiscount: number = 0;
   products: IProduct[] = [];
-
-  constructor() {
+  shopper: Account | {};
+  constructor(shopper: Account | {}) {
     this.id = uuid();
+    this.shopper = shopper;
   }
 
   updateTotalPrice = () => {
@@ -46,8 +48,11 @@ class Order implements IOrder {
     this.updateTotalPrice();
   };
 
-  isValid = () =>
-    this.products.length > 0 && this.totalPrice > 0 ? true : false;
+  isValid = () => {
+    if (this.products.length <= 0 && this.totalPrice <= 0) return false;
+    if (!(this.shopper instanceof Account)) return false;
+    return true;
+  };
 
   applyDiscount = (discount: IDiscount) => {
     this.discounts.push(discount);

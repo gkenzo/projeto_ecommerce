@@ -4,23 +4,12 @@ import { createAccountInputDTO } from "../src/domain/types";
 
 describe("testing accounts", () => {
   const documentValidator = DocumentValidator.getInstance();
-  it("should be able to create a user with valid information", () => {
+  it("should be able to create a user with valid document", () => {
     const userInputDTO: createAccountInputDTO = {
       name: "name",
       type: "CPF",
-      document: "789.925.220-29",
-      address: {
-        address1: "address1",
-        address2: "address2",
-        address3: "address3",
-        county: "county",
-        city: "city",
-        state: "state",
-        country: "country",
-        zipcode: "zipcode",
-      },
+      document: "851.641.020-05",
     };
-
     const account1 = new Account(userInputDTO);
     expect(
       account1.isValidDocument({
@@ -29,5 +18,18 @@ describe("testing accounts", () => {
         documentValidator,
       })
     ).toBe(true);
+    const userInputDTO2: createAccountInputDTO = {
+      name: "name",
+      type: "CPF",
+      document: "111.111.111-11",
+    };
+    const account2 = new Account(userInputDTO2);
+    expect(
+      account2.isValidDocument({
+        type: userInputDTO2.type,
+        document: userInputDTO2.document,
+        documentValidator,
+      })
+    ).toBe(false);
   });
 });
