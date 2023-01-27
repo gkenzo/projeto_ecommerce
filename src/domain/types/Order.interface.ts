@@ -9,7 +9,7 @@ interface IOrder {
   totalDiscount: number;
   products: IProduct[];
   discounts: IDiscount[];
-  shopper: Account | {};
+  shopper: Account;
 
   addProduct: (product: IProduct) => void;
   removeProduct: (productID: string) => void;

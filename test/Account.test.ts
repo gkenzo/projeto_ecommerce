@@ -32,4 +32,19 @@ describe("testing accounts", () => {
       })
     ).toBe(false);
   });
+  it("should not be able to create a user with invalid document", () => {
+    const userInputDTO2: createAccountInputDTO = {
+      name: "name",
+      type: "CPF",
+      document: "111.111.111-11",
+    };
+    const account2 = new Account(userInputDTO2);
+    expect(
+      account2.isValidDocument({
+        type: userInputDTO2.type,
+        document: userInputDTO2.document,
+        documentValidator,
+      })
+    ).toBe(false);
+  });
 });

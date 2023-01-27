@@ -10,7 +10,7 @@ describe("Testing orders", () => {
       document: "851.641.020-05",
     };
     const accountBuilder = AccountBuilder.getInstance();
-    const shopper = accountBuilder.tryToBuild(accountInputDTO);
+    const shopper = <Account>accountBuilder.tryToBuild(accountInputDTO);
     const product1DTO = {
       id: "id_p1",
       name: "p1",
@@ -53,10 +53,10 @@ describe("Testing orders", () => {
       price: 50.0,
     };
     const accountBuilder = AccountBuilder.getInstance();
-    const shopper = accountBuilder.tryToBuild(accountInputDTO);
+    const shopper = <Account>accountBuilder.tryToBuild(accountInputDTO);
     const product1 = new Product(product1DTO);
     const product2 = new Product(product2DTO);
-    const order = new Order(shopper as Account);
+    const order = new Order(shopper);
     order.addProduct(product1);
     order.addProduct(product2);
     order.removeProduct(order.products[0].id);
@@ -78,7 +78,7 @@ describe("Testing orders", () => {
     const shopper = accountBuilder.tryToBuild(accountInputDTO);
     expect(shopper).toEqual({});
     const product1 = new Product(product1DTO);
-    const order = new Order(shopper);
+    const order = new Order(shopper as Account);
     order.addProduct(product1);
     expect(order.isValid()).toBe(false);
   });

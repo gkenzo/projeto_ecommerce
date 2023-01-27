@@ -3,9 +3,9 @@ import { DocumentType, IDocumentValidator } from "./types";
 class DocumentValidator implements IDocumentValidator {
   private static INSTANCE: DocumentValidator;
 
-  CPF_MAX_LENGTH = 11;
-  CNPJ_MAX_LENGTH = 14;
-  RESERVED_DOCUMENT: string[] = [];
+  private CPF_MAX_LENGTH = 11;
+  private CNPJ_MAX_LENGTH = 14;
+  private RESERVED_DOCUMENT: string[] = [];
 
   private constructor() {
     const reservedDocument = [];
@@ -20,8 +20,8 @@ class DocumentValidator implements IDocumentValidator {
       DocumentValidator.INSTANCE = new DocumentValidator();
     return DocumentValidator.INSTANCE;
   };
-  removeMask = (document: string) => document.replace(/\D+/g, "");
-  validateCPF = (document: string): boolean => {
+  private removeMask = (document: string) => document.replace(/\D+/g, "");
+  private validateCPF = (document: string): boolean => {
     let sum = 0;
     let remnant = 0;
     const validationDigitPositions = [10, 11];
@@ -46,7 +46,7 @@ class DocumentValidator implements IDocumentValidator {
     if (remnant != parseInt(document.substring(10, 11))) return false;
     return true;
   };
-  validateCNPJ = (document: string) => false;
+  private validateCNPJ = (document: string) => false;
   validate = (documentType: DocumentType, document: string) => {
     document = this.removeMask(document);
     if (this.RESERVED_DOCUMENT.includes(document)) return false;

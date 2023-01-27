@@ -7,7 +7,7 @@ import {
 } from "../src/domain";
 import { IDiscountInputDTO, createAccountInputDTO } from "../src/domain/types";
 
-let shopper: Account | {} = {};
+let shopper = <Account>{};
 let productDTO: { id: string; name: string; price: number };
 
 describe("Testing discounts", () => {
@@ -18,7 +18,7 @@ describe("Testing discounts", () => {
       document: "12312312311",
     };
     const accountBuilder = AccountBuilder.getInstance();
-    shopper = accountBuilder.tryToBuild(accountInputDTO);
+    shopper = <Account>accountBuilder.tryToBuild(accountInputDTO);
     productDTO = {
       id: "id_p1",
       name: "p1",
