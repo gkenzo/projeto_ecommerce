@@ -13,8 +13,6 @@ describe("testing accounts", () => {
     const account1 = new Account(userInputDTO);
     expect(
       account1.isValidDocument({
-        type: userInputDTO.type,
-        document: userInputDTO.document,
         documentValidator,
       })
     ).toBe(true);
@@ -26,8 +24,6 @@ describe("testing accounts", () => {
     const account2 = new Account(userInputDTO2);
     expect(
       account2.isValidDocument({
-        type: userInputDTO2.type,
-        document: userInputDTO2.document,
         documentValidator,
       })
     ).toBe(false);
@@ -41,8 +37,6 @@ describe("testing accounts", () => {
     const account2 = new Account(userInputDTO2);
     expect(
       account2.isValidDocument({
-        type: userInputDTO2.type,
-        document: userInputDTO2.document,
         documentValidator,
       })
     ).toBe(false);

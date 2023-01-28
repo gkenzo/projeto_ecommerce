@@ -19,8 +19,6 @@ class AccountBuilder implements IBuilder {
     const { type, document } = account;
     const newAccount = new Account(account);
     const shouldBuild = newAccount.isValidDocument({
-      type,
-      document,
       documentValidator: this.documentValidator,
     });
     return shouldBuild ? newAccount : {};

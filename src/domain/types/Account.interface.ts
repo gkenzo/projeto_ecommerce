@@ -6,7 +6,7 @@ type createAccountInputDTO = Pick<IAccount, "name" | "document" | "type">;
 type DocumentType = "CPF" | "CNPJ";
 
 interface isValidDocumentInputDTO {
-  type: DocumentType;
+  documentType: DocumentType;
   document: string;
   documentValidator: IDocumentValidator;
 }
@@ -18,7 +18,7 @@ interface IAccount {
   document: string;
   address: IAddress;
   isValidDocument: ({
-    type,
+    documentType,
     document,
     documentValidator,
   }: isValidDocumentInputDTO) => boolean;

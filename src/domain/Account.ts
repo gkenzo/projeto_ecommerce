@@ -28,14 +28,14 @@ class Account implements IAccount {
     this.document = document;
   }
   isValidDocument = ({
-    type,
-    document,
     documentValidator,
   }: {
-    type: DocumentType;
-    document: string | number;
     documentValidator: IDocumentValidator;
-  }) => documentValidator.validate(type, document.toString());
+  }) =>
+    documentValidator.validate({
+      documentType: this.type,
+      document: this.document,
+    });
   setAddress = (address: IAddress) => {
     for (const addressField in address) {
       this.address[addressField as keyof IAddress] =
