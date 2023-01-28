@@ -8,7 +8,7 @@ describe("testing accounts", () => {
     const userInputDTO: createAccountInputDTO = {
       name: "name",
       type: "CPF",
-      document: "851.641.020-05",
+      document: "473.774.340-23",
     };
     const account1 = new Account(userInputDTO);
     expect(
@@ -16,17 +16,6 @@ describe("testing accounts", () => {
         documentValidator,
       })
     ).toBe(true);
-    const userInputDTO2: createAccountInputDTO = {
-      name: "name",
-      type: "CPF",
-      document: "111.111.111-11",
-    };
-    const account2 = new Account(userInputDTO2);
-    expect(
-      account2.isValidDocument({
-        documentValidator,
-      })
-    ).toBe(false);
   });
   it("should not be able to create a user with invalid document", () => {
     const userInputDTO2: createAccountInputDTO = {
