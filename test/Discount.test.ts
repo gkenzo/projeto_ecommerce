@@ -1,10 +1,4 @@
-import {
-  Account,
-  AccountBuilder,
-  Discount,
-  Order,
-  Product,
-} from "../src/domain";
+import { Account, Discount, Order, Product } from "../src/domain";
 import { IDiscountInputDTO, createAccountInputDTO } from "../src/domain/types";
 
 let shopper = <Account>{};
@@ -17,8 +11,7 @@ describe("Testing discounts", () => {
       type: "CPF",
       document: "12312312311",
     };
-    const accountBuilder = AccountBuilder.getInstance();
-    shopper = <Account>accountBuilder.tryToBuild(accountInputDTO);
+    shopper = new Account(accountInputDTO);
     productDTO = {
       id: "id_p1",
       name: "p1",

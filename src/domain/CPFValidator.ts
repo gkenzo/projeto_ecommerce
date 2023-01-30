@@ -5,6 +5,8 @@ class CPFValidator implements IDocumentValidator {
   RESERVED_DOCUMENT: string[] = [];
   document = "";
 
+  protected removeMask = (document: string) => document.replace(/\D+/g, "");
+
   private constructor() {
     for (let i = 0; i < 10; i++)
       this.RESERVED_DOCUMENT.push(String(i).repeat(this.DOCUMENT_LENGTH));
@@ -22,7 +24,8 @@ class CPFValidator implements IDocumentValidator {
     return sum;
   };
 
-  validate = ({ document }: { document: string }): boolean => {
+  validate = (document: string): boolean => {
+    document = this.removeMask(document);
     if (
       document.length !== this.DOCUMENT_LENGTH ||
       this.RESERVED_DOCUMENT.includes(document)
@@ -47,7 +50,7 @@ class CPFValidator implements IDocumentValidator {
       if (
         remnant !=
         parseInt(
-          document.substring(
+          this.document.substring(
             validationDigitToBeChecked[0],
             validationDigitToBeChecked[1]
           )

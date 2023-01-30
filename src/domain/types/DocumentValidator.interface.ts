@@ -1,13 +1,8 @@
-import { DocumentType } from ".";
-
 interface IDocumentValidator {
-  validate: ({
-    documentType,
-    document,
-  }: {
-    documentType: DocumentType;
-    document: string;
-  }) => boolean;
+  DOCUMENT_LENGTH: number;
+  RESERVED_DOCUMENT: string[];
+  document: string;
+  validate: (document: string) => boolean;
 }
 
 export { IDocumentValidator };

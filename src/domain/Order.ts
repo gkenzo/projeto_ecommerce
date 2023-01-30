@@ -44,7 +44,8 @@ class Order implements IOrder {
   };
   isValid = () => {
     if (this.products.length <= 0 && this.totalPrice <= 0) return false;
-    if (!(this.shopper instanceof Account)) return false;
+    if (!(this.shopper instanceof Account) || !this.shopper.isValidDocument())
+      return false;
     return true;
   };
   applyDiscount = (discount: IDiscount) => {

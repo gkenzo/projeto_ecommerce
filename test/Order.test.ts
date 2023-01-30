@@ -1,5 +1,4 @@
-import { Product, Order, Account, AccountBuilder } from "../src/domain";
-import { DocumentValidator } from "../src/domain/DocumentValidator";
+import { Product, Order, Account } from "../src/domain";
 import { createAccountInputDTO } from "../src/domain/types";
 
 describe("Testing orders", () => {
@@ -9,8 +8,7 @@ describe("Testing orders", () => {
       type: "CPF",
       document: "851.641.020-05",
     };
-    const accountBuilder = AccountBuilder.getInstance();
-    const shopper = <Account>accountBuilder.tryToBuild(accountInputDTO);
+    const shopper = new Account(accountInputDTO);
     const product1DTO = {
       id: "id_p1",
       name: "p1",
@@ -52,8 +50,7 @@ describe("Testing orders", () => {
       name: "p1",
       price: 50.0,
     };
-    const accountBuilder = AccountBuilder.getInstance();
-    const shopper = <Account>accountBuilder.tryToBuild(accountInputDTO);
+    const shopper = new Account(accountInputDTO);
     const product1 = new Product(product1DTO);
     const product2 = new Product(product2DTO);
     const order = new Order(shopper);
@@ -74,11 +71,9 @@ describe("Testing orders", () => {
       name: "p1",
       price: 50.0,
     };
-    const accountBuilder = AccountBuilder.getInstance();
-    const shopper = accountBuilder.tryToBuild(accountInputDTO);
-    expect(shopper).toEqual({});
+    const shopper = new Account(accountInputDTO);
     const product1 = new Product(product1DTO);
-    const order = new Order(shopper as Account);
+    const order = new Order(shopper);
     order.addProduct(product1);
     expect(order.isValid()).toBe(false);
   });

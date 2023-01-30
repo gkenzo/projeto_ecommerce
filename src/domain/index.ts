@@ -1,5 +1,6 @@
 export * from "./Account";
-export * from "./AccountBuilder";
 export * from "./Product";
 export * from "./Order";
+export * from "./CNPJValidator";
+export * from "./CPFValidator";
 export * from "./Discount";

@@ -5,7 +5,8 @@ import {
   createAccountInputDTO,
 } from "./types";
 import { v4 as uuid } from "uuid";
-import { IDocumentValidator } from "./types/DocumentValidator.interface";
+import { CNPJValidator } from "./CNPJValidator";
+import { CPFValidator } from "./CPFValidator";
 
 class Account implements IAccount {
   id: string = uuid();
@@ -27,15 +28,14 @@ class Account implements IAccount {
     this.type = type;
     this.document = document;
   }
-  isValidDocument = ({
-    documentValidator,
-  }: {
-    documentValidator: IDocumentValidator;
-  }) =>
-    documentValidator.validate({
-      documentType: this.type,
-      document: this.document,
-    });
+  isValidDocument = () => {
+    if (this.type === "CNPJ") {
+      const cnpj = CNPJValidator.getInstance();
+      return cnpj.validate(this.document);
+    }
+    const cpf = CPFValidator.getInstance();
+    return cpf.validate(this.document);
+  };
   setAddress = (address: IAddress) => {
     for (const addressField in address) {
       this.address[addressField as keyof IAddress] =
