@@ -1,11 +1,11 @@
 import { IDiscount, IProduct } from ".";
 import { Account } from "../Account";
 
-type createOrderInputDTO = Pick<IOrder, "shopper">;
+type createOrderInputDTO = Pick<IOrder, "shopper" | "products">;
 interface IOrder {
   id: string;
   created_at: Date;
-  totalPrice: number;
+  total: number;
   totalDiscount: number;
   products: IProduct[];
   discounts: IDiscount[];
@@ -13,9 +13,9 @@ interface IOrder {
 
   addProduct: (product: IProduct) => void;
   removeProduct: (productID: string) => void;
-  updateTotalPrice: () => void;
+  updateTotal: () => void;
   isValid: () => boolean;
-  applyDiscount: (discount: IDiscount) => void;
+  applyDiscountCoupon: (discount: IDiscount) => void;
 }
 
 export { IOrder, createOrderInputDTO };

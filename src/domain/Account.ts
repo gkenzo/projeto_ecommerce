@@ -23,10 +23,12 @@ class Account implements IAccount {
     country: "",
     zipcode: "",
   };
+  createdAt: Date;
   constructor({ name, type, document }: createAccountInputDTO) {
     this.name = name;
     this.type = type;
     this.document = document;
+    this.createdAt = new Date();
   }
   isValidDocument = () => {
     if (this.type === "CNPJ") {

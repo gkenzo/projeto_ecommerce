@@ -7,6 +7,7 @@ type DocumentType = "CPF" | "CNPJ";
 interface IAccount {
   id: string;
   name: string;
+  createdAt: Date;
   type: DocumentType;
   document: string;
   address: IAddress;

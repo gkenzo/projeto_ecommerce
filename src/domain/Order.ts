@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 class Order implements IOrder {
   id: string;
   created_at: Date = new Date();
-  totalPrice: number = 0;
+  total: number = 0;
   discounts: IDiscount[] = [];
   totalDiscount: number = 0;
   products: IProduct[] = [];
@@ -13,13 +13,16 @@ class Order implements IOrder {
     this.id = uuid();
     this.shopper = shopper;
   }
-  updateTotalPrice = () => {
+  applyDiscountCoupon(discount: IDiscount) {
+    if (discount.isValid()) this.discounts.push(discount);
+  }
+  updateTotal = () => {
     const totalRawPrice = this.products.reduce(
       (acc, { price }) => acc + price,
       0
     );
     if (this.discounts.length === 0) {
-      this.totalPrice = totalRawPrice;
+      this.total = totalRawPrice;
       return;
     }
     let totalDiscount = 0;
@@ -28,29 +31,29 @@ class Order implements IOrder {
       if (type === "PERCENTAGE")
         totalDiscount += totalRawPrice * (amount / 100);
       this.totalDiscount = totalDiscount;
-      this.totalPrice = totalRawPrice - totalDiscount;
+      this.total = totalRawPrice - totalDiscount;
     }
   };
   addProduct = (product: IProduct) => {
     this.products.push(product);
-    this.updateTotalPrice();
+    this.updateTotal();
   };
   removeProduct = (productID: string) => {
     const productIndex = this.products.findIndex(
       (product) => product.id == productID
     );
     this.products.splice(productIndex, 1);
-    this.updateTotalPrice();
+    this.updateTotal();
   };
   isValid = () => {
-    if (this.products.length <= 0 && this.totalPrice <= 0) return false;
+    if (this.products.length <= 0 && this.total <= 0) return false;
     if (!(this.shopper instanceof Account) || !this.shopper.isValidDocument())
       return false;
     return true;
   };
   applyDiscount = (discount: IDiscount) => {
     this.discounts.push(discount);
-    this.updateTotalPrice();
+    this.updateTotal();
   };
 }
 export { Order };
